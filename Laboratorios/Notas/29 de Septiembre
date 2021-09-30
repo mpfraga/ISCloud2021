@@ -1,0 +1,4 @@
+Se creó el security group "allow_ssh_http" utilizando terraform en el archivo securitygroups.tf
+Se cambio en la instancia "TP_Terraform" el security group al creado utilizando 
+"aws_security_group.allow_ssh_http.id
+Se aplicó el cambio.
