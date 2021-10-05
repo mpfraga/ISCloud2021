@@ -1,7 +1,7 @@
 resource "aws_security_group" "allow_ssh_http" {
   name        = "allow_ssh_http"
   description = "Abre Puerto 22 y 80"
-  vpc_id      = "vpc-432f563e"
+  vpc_id      = aws_vpc.vpc_tp_terraform.id
 
   ingress = [
     {
