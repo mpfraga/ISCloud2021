@@ -9,13 +9,25 @@ resource "aws_vpc" "vpc_tp_terraform" {
   }
 }
 
-resource "aws_subnet" "subnet_tp_terraform" {
+resource "aws_subnet" "subnet_public" {
   vpc_id                  = aws_vpc.vpc_tp_terraform.id
   cidr_block              = "172.16.1.0/24"
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = "true"
   tags = {
-    Name        = "test-terraform-subnet"
+    Name        = "subnet-public"
+    Terraform   = "True"
+    Description = "Subnet for the lab"
+  }
+}
+
+resource "aws_subnet" "subnet_internal" {
+  vpc_id                  = aws_vpc.vpc_tp_terraform.id
+  cidr_block              = "172.16.2.0/24"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = "true"
+  tags = {
+    Name        = "subnet-internal"
     Terraform   = "True"
     Description = "Subnet for the lab"
   }

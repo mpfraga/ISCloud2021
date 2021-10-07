@@ -23,10 +23,10 @@ variable "key_tp_terraform" {
   default = "AWS-SSH"
 }
 
-output "ip_public_tp_terraform" {
-  value = aws_instance.TP_Terraform_Three.public_ip
-}
+#output "ip_public_tp_terraform" {
+#  value = aws_instance.TP_Terraform_Three.public_ip
+#}
 
-output "dns_public_tp_terraform" {
-  value = aws_instance.TP_Terraform_Three.public_dns
-}
+#output "dns_public_tp_terraform" {
+#  value = aws_instance.TP_Terraform_Three.public_dns
+#}
