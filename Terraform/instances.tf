@@ -33,6 +33,7 @@ resource "aws_instance" "Terraform_Wordpress" {
     Name      = "Terraform_Wordpress"
     Terraform = "True"
   }
+  user_data = "${file("install_LAMP_Stack.sh")}"
   connection {
     type = "ssh"
     user = "ec2-user"
@@ -58,6 +59,9 @@ resource "aws_instance" "Terraform_Wordpress" {
     ]
     
   }
+  
+
+
 
 
 }
