@@ -1,15 +1,15 @@
-module "rds_tp_terraform" {
+module "db" {
   source  = "terraform-aws-modules/rds/aws"
   version = "~> 3.0"
 
-  identifier = "TP_Terraform_RDS"
+  identifier = "tp-terraform-rds"
 
   engine            = "mysql"
   engine_version    = "5.7"
   instance_class    = "db.t3.micro"
   allocated_storage = 10
 
-  name     = "Wordpress"
+  name     = "wordpress"
   username = "terraform"
   password = "A12345678."
   port     = "3306"
@@ -22,7 +22,7 @@ module "rds_tp_terraform" {
   }
 
   # DB subnet group
-  subnet_ids = [aws_subnet.subnet_internal.id]
+  subnet_ids = [aws_subnet.subnet_internal.id, aws_subnet.subnet_internal_two.id]
 
   # DB parameter group
   family = "mysql5.7"
@@ -31,18 +31,7 @@ module "rds_tp_terraform" {
   major_engine_version = "5.7"
 
   # Database Deletion Protection
-  deletion_protection = true
-
-  parameters = [
-    {
-      name  = "character_set_client"
-      value = "utf8mb4"
-    },
-    {
-      name  = "character_set_server"
-      value = "utf8mb4"
-    }
-  ]
+  deletion_protection = false
 }
 
 resource "aws_instance" "Terraform_Wordpress" {
@@ -79,9 +68,9 @@ resource "aws_instance" "Terraform_Wordpress" {
       "sed 's/database_name_here/Wordpress/g' wp-config.php", #reemplaza 'database_name_here' con Wordpress
       "sed 's/username_here/terraform/g' wp-config.php",
       "sed 's/password_here/A12345678./g' wp-config.php",
-      "echo ${module.rds_tp_terraform.db_instance_endpoint} > db_instance.txt",
+      "echo ${module.db.db_instance_endpoint} > db_instance.txt",
       #module."nombre del modulo"."recurso a llamar"
     ]
   }
-    depends_on = [module.rds_tp_terraform]
+    depends_on = [module.db]
 } 

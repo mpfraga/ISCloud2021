@@ -2,17 +2,17 @@ module "alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 6.0"
 
-  name = "TP_Terraform_ALB"
+  name = "tp-Terraform-alb"
 
   load_balancer_type = "application"
 
   vpc_id          = aws_vpc.vpc_tp_terraform.id
-  subnets         = [aws_subnet.subnet_public.id]
+  subnets         = [aws_subnet.subnet_public.id, aws_subnet.subnet_public_two.id]
   security_groups = [aws_security_group.allow_ssh_http.id]
 
   target_groups = [
     {
-      name_prefix      = "pref-"
+      name_prefix      = "def"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
